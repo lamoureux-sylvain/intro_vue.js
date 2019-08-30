@@ -1,21 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <title>Introduction Vue.js</title>
         <script src="vue.js"></script>
     </head>
     <body>
-        <h1>Introduction à vue.js</h1>
-        <div id="app">
-            <h2>{{title}}</h2>
-            <button v-on:click="reverseTitle">inverser</button>
-        </div>
+
+    <h1>Introduction à vue.js</h1>
+
+    <div id="app">
+        <!--affiche la variable title ds le html-->
+        <h2>{{title}}</h2>
+        <!--affiche la variable title ds le html + v-once empeche le chgmt d'etat du on-click-->
+        <h2 v-once>{{title}}</h2>
+
+        <!--h2 dynamique avec v-model-->
+        <input type="text" v-model="title">
+
+        <!--javascript ds le DOM condition ternaire pour afficher un message en fonction de l'etat de title-->
+        <h3>{{title == 'super intro !' ? 'Bon sens' : 'Mauvais sens'}}</h3>
+
+        <!--execute la function reverseTitle au click du bouton-->
+        <button v-on:click="reverseTitle">inverser</button>
+
+        <!--v-bind raccourci pour afficher une info au survol du txt + affiche la variable title ds le html + v-once empeche le chgmt d'etat du on-click-->
+        <p v-once :title="title">Lorem ipsum dolor sit amet<span>{{ title }}</span></p>
+        <!--v-bind version longue pour afficher une info au survol du txt + affiche la variable title ds le html-->
+        <p v-bind:title="title">Lorem ipsum dolor sit amet</p>
+        <!--test interpretation html avec v-html-->
+        <p v-bind:title="title">Lorem ipsum dolor sit amet<span v-html="strongTag"></span></p>
+
+    </div>
+
         <script>
             new Vue({
                 el:'#app',
                 data: {
-                    title: 'super intro !'
+                    title: 'super intro !',
+                    strongTag: '<strong>IMPORTANT</strong>'
                 },
                 methods: {
                     reverseTitle: function() {
@@ -24,5 +47,6 @@
                 }
             })
         </script>
+
     </body>
 </html>
