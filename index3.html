@@ -8,14 +8,16 @@
 </head>
 <body>
     <div id="app">
-        <p>Vue.js est incroyable</p>
+        <button @click=" show =!show">magic</button>
+        <p v-if="show">Vue.js est incroyable</p>
+        <p v-else> some kind of magic </p>
     </div>
 
     <script>
         new Vue({
             el:'#app',
-            data {
-
+            data: {
+                show: false,
             }
         })
     </script>
