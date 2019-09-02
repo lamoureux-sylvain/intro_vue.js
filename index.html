@@ -48,6 +48,16 @@
 
         <input type="text" @keyup.ctrl.space="alert">
 
+        <br/><br/><br/>
+
+        <button @click="counter++">Incrémenter</button>
+        <button @click="counterTwo++">Incrémenter 2</button>
+        <h4> {{counter}} </h4>
+        <h4> {{wordMethod()}} - {{wordComputed}} </h4>
+        <h4> {{ counterTwo}} </h4>
+        <button @click="counter--">Décrémenter</button>
+
+
     </div>
 
         <script>
@@ -57,9 +67,16 @@
                     title: 'super intro !',
                     info: 'attention !',
                     counter: 0,
+                    counterTwo: 0,
                     tagname: '',
                     strongTag: '<strong> IMPORTANT</strong>'
                 },
+                computed: {
+                    wordComputed: function() {
+                        return this.counter < 0 ? 'Negatif' : 'Positif'
+                    }
+                },
+
                 methods: {
                     reverseTitle: function() {
                         this.title = this.title.split('').reverse().join('')
@@ -76,6 +93,9 @@
                     },
                     alert: function () {
                         alert('Boum !!!!!')
+                    },
+                    wordMethod: function() {
+                        return this.counter < 0 ? 'Negatif' : 'Positif'
                     }
                 }
             })
