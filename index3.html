@@ -9,7 +9,11 @@
 <body>
     <div id="app">
         <button @click=" show =!show">magic</button>
-        <p v-if="show">Vue.js est incroyable</p>
+
+        <template v-if="show">
+        <p >Vue.js est incroyable</p>
+        <strong> ceci est un template </strong>
+        </template>
         <p v-else> some kind of magic </p>
     </div>
 
