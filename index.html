@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns: xmlns:
+      xmlns: xmlns:>
     <head>
         <meta charset="UTF-8">
         <title>Introduction Vue.js</title>
@@ -29,7 +30,23 @@
         <!--v-bind version longue pour afficher une info au survol du txt + affiche la variable title ds le html-->
         <p v-bind:title="title">Lorem ipsum dolor sit amet</p>
         <!--test interpretation html avec v-html-->
-        <p v-bind:title="title">Lorem ipsum dolor sit amet<span v-html="strongTag"></span></p>
+        <p v-bind:title="title">Lorem ipsum dolor sit amet<span v-html="strongTag" :title="info"></span></p>
+        <!--incrément grace au v-on ici en forme racourcie "@click"-->
+        <button @click="increase(4, $event)">incrémenter</button>
+        <!--version longue-->
+        <!--<button v-on:click="increase">incrémenter</button>-->
+        <h4>{{ counter }}</h4>
+        <!--evenement au mouse over-->
+        <p @mouseover="hover">
+            Lorem ipsum dolor sit amet<br/>
+            <strong>Important !</strong><br/>
+            <strong @mouseover="stopHover">Important ! sans lecture du tag avec une fonction</strong><br/>
+            <strong @mouseover.stop="">Important ! sans lecture du tag avec un event modifier</strong><br/>
+            <span>test !!</span><br/>
+        </p>
+        <p>Balise : {{tagname}}</p>
+
+        <input type="text" @keyup.ctrl.space="alert">
 
     </div>
 
@@ -38,11 +55,27 @@
                 el:'#app',
                 data: {
                     title: 'super intro !',
-                    strongTag: '<strong>IMPORTANT</strong>'
+                    info: 'attention !',
+                    counter: 0,
+                    tagname: '',
+                    strongTag: '<strong> IMPORTANT</strong>'
                 },
                 methods: {
                     reverseTitle: function() {
                         this.title = this.title.split('').reverse().join('')
+                    },
+                    increase: function(step, e) {
+                        this.counter+= step
+                        this.tagname = e.target.tagName
+                    },
+                    hover: function() {
+                        this.tagname = event.target.tagName
+                    },
+                    stopHover: function (event) {
+                        event.stopPropagation()
+                    },
+                    alert: function () {
+                        alert('Boum !!!!!')
                     }
                 }
             })
