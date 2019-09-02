@@ -3,21 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>style dynamique</title>
+    <link rel="stylesheet" href="style.css">
     <script src="vue.js"></script>
 </head>
 
 <body>
-    <div>
-        <h1 class="title">Titre 1</h1>
-        <h1 class="title">Titre 2</h1>
-        <h1 class="title">Titre 3</h1>
+    <div id="app">
+<!--        array d'objet       -->
+        <h2 class="title" :class="[myClass, {red: !isBlue}]">Titre 1</h2>
+<!--        objet      -->
+        <h2 class="title" :class="myClass">Titre 2</h2>
+<!--        variable        -->
+        <h2 class="title" :class="color">Titre 3</h2>
+        <input type="text" v-model="color"><br/><br/>
+        <button @click=" isBlue = !isBlue ">bleu</button>
+        <button @click=" isUnderline = !isUnderline ">souligner</button><br/><br/>
+
+        <h2 class="title" :style="[{color: color}, myStyle]">Titre 1</h2>
+        <h2 class="title" :style="myStyle">Titre 2</h2>
+        <h2 class="title" :style="myStyle">Titre 3</h2>
+
+        <input type="text" v-model="color"><br/><br/>
+        <input type="text" v-model="size"><br/><br/>
+
     </div>
 
     <script>
         new Vue({
             el: '#app',
             data: {
-
+                isBlue: true,
+                isUnderline: true,
+                color: 'red',
+                size: 35
+            },
+            computed:{
+                myClass: function() {
+                    return {
+                        blue: this.isBlue,
+                        underline: this.isUnderline
+                    }
+                },
+                myStyle: function() {
+                    return {
+                        'font-size': this.size+'px'
+                    }
+                }
             }
         })
     </script>
