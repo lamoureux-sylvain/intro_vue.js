@@ -7,17 +7,60 @@
     <script src="vue.js"></script>
 </head>
 <body>
+    <h1>Test sur les boucles</h1>
+
     <div id="app">
+        <h2>liste</h2>
         <ul>
-            <li></li>
+            <li v-for="myObject in names">{{ myObject.name }}</li></br>
+            <p>avec index en plus</p>
+            <li v-for="(myObject, index) in names"> {{ index }}-{{ myObject.name }}</li>
         </ul>
+        <h2>boucle sur tableau</h2>
+        <template v-for="(myObject, index) in names">
+            <h3>Nom: {{myObject.name}} </h3>
+            <h3>Age: {{myObject.age}} </h3>
+            <span>id:  {{index}} </span>
+        </template>
+<!--      ou en bouclant directement sur tableau d'objet      -->
+        <h2>boucle sur tableau d'objet</h2>
+        <template v-for="myObject in names">
+            <h3 v-for="info in myObject"> {{ info }} </h3>
+            <p>ajout du parametre key a info</p>
+            <h3 v-for="(info, key) in myObject"> {{ key }} : {{ info }} </h3>
+            <p>ajout du parametre index a info</p>
+            <h3 v-for="(info, key, index) in myObject"> {{ key }} : {{ info }} ({{ index }}) </h3>
+            <hr>
+            <br/>
+        </template>
+        <h2>faire un nbr spécifique d'itérations</h2>
+        <template>
+            <ul>
+                <li v-for="n in 10">{{n}}</li>
+            </ul>
+        </template>
+
+
     </div>
 
     <script>
         new Vue({
             el:'#app',
             data: {
-                name: ['John', 'Jane', 'Alex']
+                names: [
+                    {
+                        name: 'John',
+                        age: 23
+                    },
+                    {
+                        name: 'Jane',
+                        age:32
+                    },
+                    {
+                        name: 'Alex',
+                        age: 28
+                    }
+                    ]
             }
         })
     </script>
